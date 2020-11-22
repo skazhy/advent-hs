@@ -10,8 +10,7 @@ DAY=${1:-"$TODAY"}
 SRC_FILENAME="src/Day$DAY.hs"
 if [ ! -f "$SRC_FILENAME" ]; then
   echo "Creating new source file for day $DAY..."
-  echo "Paste today's title:"
-  read TITLE
+  TITLE=$(curl -s https://adventofcode.com/2020/day/$DAY | grep -m1 h2 | sed 's/.*--- \(Day .*\) ---.*/\1/')
   cp src/Day0.hs src/Day$DAY.hs
   sed -i "" "s/Day0/Day$DAY/g; s/TODO/$TITLE/" $SRC_FILENAME
 

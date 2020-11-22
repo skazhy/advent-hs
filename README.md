@@ -21,7 +21,8 @@ My Clojure solutions for (some of) 2017-2019 puzzles are [here](https://github.c
 When run with no arguments it sets up source and input files for the current day.
 Alternatively it can be started with a day number (`dev.sh 20`) to start (or revisit) a
 given day. When creating files, the input text & title of a given day need to
-be provided.
+be provided. In order to fetch the input data, the session cookie value needs
+to be stored in a file `.cookie` (saves me 10 seconds every day, I know).
 
 `Day0` contains puzzles from December 1, 2019 that serve as a template when
 setting up new days.

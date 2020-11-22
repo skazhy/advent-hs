@@ -23,7 +23,13 @@ fi
 # Create a new input file if needed
 INPUT_FILENAME="inputs/day$DAY.txt"
 if [ ! -f "$INPUT_FILENAME" ]; then
-  vim -c ':echo "Paste the puzzle input"' $INPUT_FILENAME
+  if [ ! -f ".cookie" ]; then
+    echo "Please save the cookie header value in .cookie!"
+    exit 1
+  fi
+  COOKIE=$(cat .cookie)
+  INPUT=$(curl -s --fail https://adventofcode.com/2019/day/$DAY/input -H "Cookie: $COOKIE")
+  echo "$INPUT" > $INPUT_FILENAME
   git add --intent-to-add $INPUT_FILENAME
 fi
 

@@ -1,3 +1,12 @@
+{-|
+Module      : Day0
+Description : TODO
+
+Puzzle from December 1, 2019 that serves as a template for 2020 puzzles.
+<https://adventofcode.com/2020/day/0>
+
+-}
+
 module Day0 where
 
 import Advent

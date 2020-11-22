@@ -28,6 +28,9 @@ setting up new days.
 
 `runghc -isrc src/DayX.hs` can be used to run already completed puzzles.
 
+`scripts/lint.sh` runs [hlint](https://hackage.haskell.org/package/hlint) on
+staged changes (useful for pre-commit hook).
+
 ___
 
 2020 - &infin; [skazhy](http://karlis.me)

@@ -13,10 +13,15 @@ if [ ! -f "$SRC_FILENAME" ]; then
   echo "Creating new source file for day $DAY..."
   TITLE=$(curl -s https://adventofcode.com/$YEAR/day/$DAY | grep -m1 h2 | sed 's/.*--- \(Day .*\) ---.*/\1/')
   cp src/Day0.hs src/Day$DAY.hs
-  sed -i "" "s/Day0/Day$DAY/g; s/TODO/$TITLE/" $SRC_FILENAME
-
-  # Remove 2019.01 specific code from template.
-  sed -i "" "s/parsedInput 0 intLines/parsedInput $DAY id/; s:day/0:day/$DAY:; 5d;16,22d;25,26d" $SRC_FILENAME
+  # Remove / replace 2019.01 specific code.
+  sed -i "" "s/Day0/Day$DAY/g; \
+             3s/Day.*/$TITLE/; \
+             5d; \
+             6s:2019/day/1:$YEAR/day/$DAY:; \
+             8s/.*/\* /; \
+             s/parsedInput 0 intLines/parsedInput $DAY id/; \
+             18,24d;  \
+             27,28d;" $SRC_FILENAME
   echo "    print input" >> $SRC_FILENAME
   git add --intent-to-add $SRC_FILENAME
 fi

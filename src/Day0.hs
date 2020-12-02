@@ -1,9 +1,11 @@
 {-|
 Module      : Day0
-Description : TODO
+Description : Day 1: The Tyranny of the Rocket Equation
 
 Puzzle from December 1, 2019 that serves as a template for 2020 puzzles.
-<https://adventofcode.com/2020/day/0>
+<https://adventofcode.com/2019/day/1>
+Notes from this puzzle:
+* Haskell's iterate is the same as clojure.core/iterate
 
 -}
 
@@ -17,8 +19,8 @@ fuel :: Int -> Int
 fuel = max 0 . subtract 2 . (`div` 2)
 
 combinedFuel :: Int -> Int
-combinedFuel i =
-    sum $ takeWhile (> 0) $ tail $ iterate fuel i
+combinedFuel =
+    sum . takeWhile (> 0) . tail . iterate fuel
 
 main = do
     input <- loadInput

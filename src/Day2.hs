@@ -3,6 +3,9 @@ Module      : Day2
 Description : Day 2: Password Philosophy
 
 <https://adventofcode.com/2020/day/2>
+Notes from this puzzle:
+* break returns a tuple with two collections.
+* !! returns element at index (or throws)
 
 -}
 
@@ -32,7 +35,7 @@ fromString s =
 
 isValidPassword :: Password -> Bool
 isValidPassword pw =
-    let count = length $ filter (== letter pw) (value pw)
+    let count = (length . filter (== letter pw) . value) pw
     in low pw <= count && count <= high pw
 
 charMatcher :: (Password -> Int) -> Password -> Bool
@@ -44,5 +47,5 @@ isValidPassword2 pw =
 
 main = do
     input <- parsedInput 2 (map fromString . lines)
-    print $ length $ filter isValidPassword input
-    print $ length $ filter isValidPassword2 input
+    print $ (length . filter isValidPassword) input
+    print $ (length . filter isValidPassword2) input

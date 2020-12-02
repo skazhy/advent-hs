@@ -3,6 +3,10 @@ Module      : Day1
 Description : Day 1: Report Repair
 
 <https://adventofcode.com/2020/day/1>
+Notes from this puzzle:
+* With <|> an "alternative choice" is provided in case first operand is "empty"
+* It's not possible to pattern match on sets, so both sets and lists are used.
+* asum finds the first "non-empty" alternative in a collection
 
 -}
 

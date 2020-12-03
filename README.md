@@ -15,7 +15,8 @@ Haskell solutions to [Advent of Code 2020](https://adventofcode.com/2020).
 My Clojure solutions for (some of) 2017-2020 puzzles are [here](https://github.com/skazhy/advent).
 
 My goal for Advent of Code 2020 is to explore core Haskell & not use any
-external libraries.
+external libraries. Most puzzles contain new things learned when solving the
+day & [TODO.md](/TODO.md) contain extra challenges and open questions.
 
 ### Workflow
 

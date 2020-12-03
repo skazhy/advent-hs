@@ -2,20 +2,20 @@
 
 ### Day 1: Report Repair
 
-[puzzle](https://adventofcode.com/2020/day/1) | [source](/blob/master/src/Day1.hs)
+[puzzle](https://adventofcode.com/2020/day/1) | [source](/src/Day1.hs)
 
 * `elementResult`: is there a way to return replace `member` lookup with a
   method that returns a Maybe, so that the if-else can be replaced with a map.
 
 ### Day 2: Password Philosophy
 
-[puzzle](https://adventofcode.com/2020/day/) | [source](/blob/master/src/Day.hs)
+[puzzle](https://adventofcode.com/2020/day/2) | [source](/src/Day2.hs)
 
 * is there an idiomatic way to express `length . filter`?
 
 ### Day 3: Toboggan Trajectory
 
-[puzzle](https://adventofcode.com/2020/day/3) | [source](/blob/master/src/Day3.hs)
+[puzzle](https://adventofcode.com/2020/day/3) | [source](/src/Day3.hs)
 
 * `updateCoords`:  Can it be expressed in point-free style? How would Haskell
   version of `(map + [1 2] [3 4])` look like?

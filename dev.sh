@@ -7,6 +7,8 @@ YEAR=2020
 TODAY=$(date "+%d" | sed -e 's/0//g')
 DAY=${1:-"$TODAY"}
 
+TODO_FILENAME="TODO.md"
+
 # Add new source file if needed
 SRC_FILENAME="src/Day$DAY.hs"
 if [ ! -f "$SRC_FILENAME" ]; then
@@ -24,6 +26,20 @@ if [ ! -f "$SRC_FILENAME" ]; then
              27,28d;" $SRC_FILENAME
   echo "    print input" >> $SRC_FILENAME
   git add --intent-to-add $SRC_FILENAME
+
+  # Append new section to TODO.md if needed.
+  if ! grep -q "$TITLE" "$TODO_FILENAME"; then
+TODO_CONTENT=$(cat <<-eof
+
+### $TITLE
+
+[puzzle](https://adventofcode.com/$YEAR/day/$DAY) | [source](/$SRC_FILENAME)
+
+*
+eof
+)
+  echo "$TODO_CONTENT" >> "$TODO_FILENAME"
+  fi
 fi
 
 # Create a new input file if needed

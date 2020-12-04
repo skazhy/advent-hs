@@ -35,8 +35,7 @@ fromString s =
 
 isValidPassword :: Password -> Bool
 isValidPassword pw =
-    let count = (length . filter (== letter pw) . value) pw
-    in low pw <= count && count <= high pw
+    (inRange (low pw, high pw) . length . filter (== letter pw) . value) pw
 
 charMatcher :: (Password -> Int) -> Password -> Bool
 charMatcher val pw = value pw !! (val pw - 1) == letter pw

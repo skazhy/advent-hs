@@ -2,7 +2,11 @@ module Advent
     ( readInput
     , parsedInput
     , intLines
+    , inRange
     ) where
+
+import Control.Monad
+import Control.Monad.Reader
 
 inputFilename :: Int -> String
 inputFilename dayNum =
@@ -17,3 +21,8 @@ parsedInput dayNum parse =
 
 intLines :: String -> [Int]
 intLines = map read . lines
+
+-- Helpers
+
+inRange :: Ord a => (a, a) -> a -> Bool
+inRange (low, high) = liftM2 (&&) (>= low) (<= high)

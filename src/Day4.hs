@@ -40,8 +40,8 @@ hasRequiredFields = null . (requiredFields \\) . map (take 3)
 -- Validation
 
 validateStringIntInRange :: (Int, Int) -> String -> Bool
-validateStringIntInRange (low, high) =
-    fromMaybe False . fmap (liftM2 (&&) (>= low) (<= high)) . readInt
+validateStringIntInRange r =
+    fromMaybe False . fmap (inRange r) . readInt
 
 validateHeight :: String -> Bool
 validateHeight h
@@ -73,7 +73,7 @@ validateField s =
         ("hcl", v) -> validateHairColor v
         ("ecl", v) -> member v validEyeColors
         ("pid", v) -> validatePassportId v
-        ("cid", v) -> True
+        ("cid", _) -> True
 
 validFieldValues :: Passport -> Bool
 validFieldValues = all validateField

@@ -19,3 +19,9 @@
 
 * `updateCoords`:  Can it be expressed in point-free style? How would Haskell
   version of `(map + [1 2] [3 4])` look like?
+
+### Day 4: Passport Processing
+
+[puzzle](https://adventofcode.com/2020/day/4) | [source](/src/Day4.hs)
+
+* ~Do not use ranges in `validateHeight`~

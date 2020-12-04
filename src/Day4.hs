@@ -17,7 +17,7 @@ import Advent
 import Control.Monad
 import Control.Monad.Reader
 import Data.List
-import Data.Maybe (fromMaybe, isJust)
+import Data.Maybe (isJust)
 import Data.Set (member, fromDistinctAscList)
 import Numeric (readHex)
 import Text.Read (readMaybe)
@@ -41,7 +41,7 @@ hasRequiredFields = null . (requiredFields \\) . map (take 3)
 
 validateStringIntInRange :: (Int, Int) -> String -> Bool
 validateStringIntInRange r =
-    fromMaybe False . fmap (inRange r) . readInt
+    maybe False (inRange r) . readInt
 
 validateHeight :: String -> Bool
 validateHeight h
@@ -53,7 +53,7 @@ validateHairColor :: String -> Bool
 validateHairColor h
     | isPrefixOf "#" h && length h == 7 =
         -- Second element of readHex will contain unparsed data.
-        ((== "") . snd . head . readHex . (drop 1)) h
+        ((== "") . snd . head . readHex . drop 1) h
     | otherwise = False
 
 validEyeColors = fromDistinctAscList ["amb", "blu", "brn", "grn", "gry", "hzl", "oth"]
@@ -75,9 +75,6 @@ validateField s =
         ("pid", v) -> validatePassportId v
         ("cid", _) -> True
 
-validFieldValues :: Passport -> Bool
-validFieldValues = all validateField
-
 -- Parsing
 
 parseLines :: [String] -> [Passport]
@@ -89,4 +86,4 @@ parseLines (x:xs) =
 main = do
     input <- parsedInput 4 (parseLines . lines)
     print $ (length . filter hasRequiredFields) input
-    print $ (length . filter (liftM2 (&&) hasRequiredFields validFieldValues)) input
+    print $ (length . filter (liftM2 (&&) hasRequiredFields (all validateField))) input

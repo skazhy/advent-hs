@@ -20,7 +20,7 @@ import Data.Set (Set(..), fromList, member)
 
 elementResult :: Set Int -> [Int] -> Maybe Int
 elementResult itemSet els =
-    let el = (2020 - (sum els)) in
+    let el = 2020 - sum els in
     if member el itemSet
        then Just $ foldr (*) el els
        else Nothing
@@ -33,7 +33,7 @@ tripletResult itemSet [] _ = Nothing
 puzzle1 :: [Int] -> Maybe Int
 puzzle1 items =
     let itemSet = fromList items
-    in asum $ fmap ((elementResult itemSet) . return) items
+    in asum $ fmap (elementResult itemSet . return) items
 
 puzzle2 :: [Int] -> Maybe Int
 puzzle2 input =

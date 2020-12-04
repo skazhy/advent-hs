@@ -37,6 +37,9 @@ setting up new days.
 `scripts/lint.sh` runs [hlint](https://hackage.haskell.org/package/hlint) on
 staged changes (useful for pre-commit hook).
 
+`./scripts/assert.sh [day number]` can be used to test that puzzle output
+matches correct answers.
+
 ___
 
 2020 - &infin; [skazhy](http://karlis.me)

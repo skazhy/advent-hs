@@ -53,5 +53,12 @@ if [ ! -f "$INPUT_FILENAME" ]; then
   git add --intent-to-add $INPUT_FILENAME
 fi
 
+# Create a solution file if needed
+SOLUTION_FILENAME="solutions/day$DAY.txt"
+if [ ! -f "$SOLUTION_FILENAME" ]; then
+  touch $SOLUTION_FILENAME
+  git add --intent-to-add $SOLUTION_FILENAME
+fi
+
 # Start GHCi with the selected source file loaded
 ghci -isrc $SRC_FILENAME

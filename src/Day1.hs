@@ -16,6 +16,7 @@ import Advent
 
 import Control.Applicative
 import Data.Foldable (asum, find)
+import Data.Maybe (fromMaybe)
 import Data.Set (Set(..), fromList, member)
 
 elementResult :: Set Int -> [Int] -> Maybe Int
@@ -43,5 +44,5 @@ puzzle2 input =
 main = do
     items <- parsedInput 1 intLines
     let itemSet = fromList items
-    print $ puzzle1 items
-    print $ puzzle2 items
+    print $ (fromMaybe 0 . puzzle1) items
+    print $ (fromMaybe 0 . puzzle2) items

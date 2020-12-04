@@ -16,7 +16,7 @@ import Advent
 loadInput = parsedInput 0 intLines
 
 fuel :: Int -> Int
-fuel = max 0 . subtract 2 . (`div` 2)
+fuel = max 0 . subtract 2 . (`div` 3)
 
 combinedFuel :: Int -> Int
 combinedFuel =

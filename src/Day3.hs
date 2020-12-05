@@ -5,7 +5,7 @@ Description : Day 3: Toboggan Trajectory
 <https://adventofcode.com/2020/day/3>
 Notes from this puzzle:
 * `foldl (*) 1 x` can be rewritten as `product x`
-
+* `if something then 1 else 0` can be rewritten as `fromEnum something`
 -}
 
 module Day3 where
@@ -38,7 +38,7 @@ updateCoords area (x, y) (dx, dy) =
 traverseArea :: Area -> Coords -> Coords -> Int
 traverseArea area coords delta
     | snd coords < areaHeight area =
-        traverseArea area (updateCoords area coords delta) delta + (if isTree coords area then 1 else 0)
+        traverseArea area (updateCoords area coords delta) delta + (fromEnum . isTree coords) area
     | otherwise = 0
 
 puzzle1 :: Area -> Int

@@ -25,3 +25,13 @@
 [puzzle](https://adventofcode.com/2020/day/4) | [source](/src/Day4.hs)
 
 * ~Do not use ranges in `validateHeight`~
+
+### Day 5: Binary Boarding
+
+[puzzle](https://adventofcode.com/2020/day/5) | [source](/src/Day5.hs)
+
+* ~Is there a better way to do destructuring in `decodeBoardingPass` (so that
+  `head` is not needed)?~
+* Try using `splitAt 7` in `decodeBoardingPass` instead of drop + take
+* What's the idiomatic way to transform lists to tuples?
+* Try rewriting `decodeRange` with recursion.

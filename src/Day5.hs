@@ -12,6 +12,7 @@ module Day5 where
 
 import Advent
 
+import Control.Applicative (liftA2)
 import Data.List (maximum, sort)
 import Data.Maybe (fromMaybe)
 
@@ -29,12 +30,9 @@ decodeRange lowChar high = fst . foldl (updateRange lowChar) (0, high)
 decodeRow = decodeRange 'F' 128
 decodeSeat = decodeRange 'L' 8
 
-seatId :: [Int] -> Int
-seatId (row:seat:_) = 8 * row + seat
-
 decodeBoardingPass :: String -> Int
 decodeBoardingPass =
-    seatId . zipWith ($) [decodeRow, decodeSeat] . sequence [take 7, drop 7]
+    liftA2 (\row seat -> 8 * row + seat) (decodeRow . take 7) (decodeSeat . drop 7)
 
 findFreeSeat :: [Int] -> Maybe Int
 findFreeSeat (a:b:xs)

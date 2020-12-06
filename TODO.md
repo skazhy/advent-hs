@@ -35,3 +35,9 @@
 * Try using `splitAt 7` in `decodeBoardingPass` instead of drop + take
 * What's the idiomatic way to transform lists to tuples?
 * Try rewriting `decodeRange` with recursion.
+
+### Day 6: Custom Customs
+
+[puzzle](https://adventofcode.com/2020/day/6) | [source](/src/Day6.hs)
+
+* `parseLines` should be moved to generic helpers.

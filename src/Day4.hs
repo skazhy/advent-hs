@@ -75,15 +75,7 @@ validateField s =
         ("pid", v) -> validatePassportId v
         ("cid", _) -> True
 
--- Parsing
-
-parseLines :: [String] -> [Passport]
-parseLines [] = []
-parseLines (x:xs) =
-    concatMap words (x:ys) : (parseLines . drop 1) zs
-    where (ys,zs) = span (/= "") xs
-
 main = do
-    input <- parsedInput 4 (parseLines . lines)
+    input <- parsedInput 4 (map (concatMap words) . groupedLines . lines)
     print $ (length . filter hasRequiredFields) input
     print $ (length . filter (liftM2 (&&) hasRequiredFields (all validateField))) input

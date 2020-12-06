@@ -11,13 +11,7 @@ import Advent
 import Data.List (intersect)
 import Data.Set (fromList)
 
-parseLines :: [String] -> [[String]]
-parseLines [] = []
-parseLines (x:xs) =
-    (x:ys) : (parseLines . drop 1) zs
-    where (ys,zs) = span (/= "") xs
-
 main = do
-    input <- parsedInput 6 (parseLines . lines)
+    input <- parsedInput 6 (groupedLines . lines)
     print $ (sum . map (length . fromList . foldl1 (++))) input
     print $ (sum . map (length . foldl1 intersect)) input

@@ -3,6 +3,7 @@ module Advent
     , parsedInput
     , intLines
     , inRange
+    , groupedLines
     ) where
 
 import Control.Monad
@@ -26,3 +27,10 @@ intLines = map read . lines
 
 inRange :: Ord a => (a, a) -> a -> Bool
 inRange (low, high) = liftM2 (&&) (>= low) (<= high)
+
+-- |Groups lines in blocks that are separated by a blank line.
+groupedLines :: [String] -> [[String]]
+groupedLines [] = []
+groupedLines (x:xs) =
+    (x:ys) : (groupedLines . drop 1) zs
+    where (ys,zs) = span (/= "") xs

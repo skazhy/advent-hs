@@ -40,4 +40,4 @@
 
 [puzzle](https://adventofcode.com/2020/day/6) | [source](/src/Day6.hs)
 
-* `parseLines` should be moved to generic helpers.
+* ~`parseLines` should be moved to generic helpers.~

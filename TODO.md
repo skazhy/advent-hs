@@ -41,3 +41,9 @@
 [puzzle](https://adventofcode.com/2020/day/6) | [source](/src/Day6.hs)
 
 * ~`parseLines` should be moved to generic helpers.~
+
+### Day 7: Handy Haversacks
+
+[puzzle](https://adventofcode.com/2020/day/7) | [source](/src/Day7.hs)
+
+* `sumOfChildren` and it's fold step can be improved.

@@ -37,9 +37,7 @@ parseDeps ws
     | otherwise = buildDeps ws
 
 parseRow :: String -> (String, Deps)
-parseRow s =
-    let ws = words s
-    in (unwords $ take 2 ws, parseDeps $ drop 4 ws)
+parseRow = liftA2 (,) (unwords . take 2) (parseDeps . drop 4) . words
 
 -- Puzzle 1: inverted graph
 

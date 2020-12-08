@@ -47,3 +47,9 @@
 [puzzle](https://adventofcode.com/2020/day/7) | [source](/src/Day7.hs)
 
 * `sumOfChildren` and it's fold step can be improved.
+
+### Day 8: Handheld Halting
+
+[puzzle](https://adventofcode.com/2020/day/8) | [source](/src/Day8.hs)
+
+* `runInstruction` could be improved, looks a bit noisy now.

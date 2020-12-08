@@ -34,13 +34,11 @@ setting up new days.
 
 ### Utilities
 
-`./scripts/run.sh [day number]` runs already completed puzzles.
-
 `scripts/lint.sh [day number]` runs [hlint](https://hackage.haskell.org/package/hlint)
 and checks for [GHC warnings](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/using-warnings.html).
 
 `./scripts/assert.sh [day number]` compares puzzle output to correct answers
-from `solutions/` folder.
+from [solutions](/solutions) folder.
 
 ___
 

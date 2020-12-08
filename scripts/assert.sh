@@ -10,6 +10,11 @@ SRC_FILENAME="src/Day$DAY.hs"
 TEST_FILENAME="solutions/day$DAY.txt"
 cd $(git rev-parse --show-toplevel)
 
+if [ ! -f "$SRC_FILENAME" ]; then
+  echo "No puzzles for day $DAY"
+  exit 1
+fi
+
 ACTUAL=$(runghc -isrc src/Day$DAY.hs)
 EXPECTED=$(cat "$TEST_FILENAME")
 
@@ -21,5 +26,6 @@ if [ "$ACTUAL" != "$EXPECTED" ]; then
   echo "$ACTUAL"
   exit 1
 else
+  echo "$ACTUAL"
   echo "Tests passed for day $DAY"
 fi

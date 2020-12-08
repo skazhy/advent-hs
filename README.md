@@ -34,13 +34,13 @@ setting up new days.
 
 ### Utilities
 
-`./scripts/run.sh [day number]` can be used to run already completed puzzles.
+`./scripts/run.sh [day number]` runs already completed puzzles.
 
 `scripts/lint.sh [day number]` runs [hlint](https://hackage.haskell.org/package/hlint)
-and checks for GHC warnings
+and checks for [GHC warnings](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/using-warnings.html).
 
-`./scripts/assert.sh [day number]` can be used to test that puzzle output
-matches correct answers.
+`./scripts/assert.sh [day number]` compares puzzle output to correct answers
+from `solutions/` folder.
 
 ___
 

@@ -32,10 +32,12 @@ adventofcode.com session cookie value needs to be stored in a `.cookie` file
 `Day0` contains puzzles from December 1, 2019 that serve as a template when
 setting up new days.
 
+### Utilities
+
 `./scripts/run.sh [day number]` can be used to run already completed puzzles.
 
-`scripts/lint.sh` runs [hlint](https://hackage.haskell.org/package/hlint) on
-staged changes (useful for pre-commit hook).
+`scripts/lint.sh [day number]` runs [hlint](https://hackage.haskell.org/package/hlint)
+and checks for GHC warnings
 
 `./scripts/assert.sh [day number]` can be used to test that puzzle output
 matches correct answers.

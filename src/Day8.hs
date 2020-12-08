@@ -10,7 +10,7 @@ module Day8 where
 import Advent
 
 import Data.List (isPrefixOf)
-import Data.Set (Set(..), empty, member, insert)
+import Data.Set (Set, empty, member, insert)
 
 data Instruction = Nop Int | Acc Int | Jmp Int | Halt Int | LoopHalt Int
 

@@ -7,7 +7,6 @@ module Advent
     ) where
 
 import Control.Monad
-import Control.Monad.Reader
 
 inputFilename :: Int -> String
 inputFilename dayNum =

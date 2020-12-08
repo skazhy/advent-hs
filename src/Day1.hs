@@ -15,9 +15,9 @@ module Day1 where
 import Advent
 
 import Control.Applicative
-import Data.Foldable (asum, find)
+import Data.Foldable (asum)
 import Data.Maybe (fromMaybe)
-import Data.Set (Set(..), fromList, member)
+import Data.Set (Set, fromList, member)
 
 elementResult :: Set Int -> [Int] -> Maybe Int
 elementResult itemSet els =
@@ -29,7 +29,7 @@ elementResult itemSet els =
 tripletResult :: Set Int -> [Int] -> Int -> Maybe Int
 tripletResult itemSet (x:xs) y =
     elementResult itemSet [x, y] <|> tripletResult itemSet xs y
-tripletResult itemSet [] _ = Nothing
+tripletResult _ [] _ = Nothing
 
 puzzle1 :: [Int] -> Maybe Int
 puzzle1 items =
@@ -43,6 +43,5 @@ puzzle2 input =
 
 main = do
     items <- parsedInput 1 intLines
-    let itemSet = fromList items
     print $ (fromMaybe 0 . puzzle1) items
     print $ (fromMaybe 0 . puzzle2) items

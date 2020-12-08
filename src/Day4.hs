@@ -15,7 +15,6 @@ module Day4 where
 import Advent
 
 import Control.Monad
-import Control.Monad.Reader
 import Data.List
 import Data.Maybe (isJust)
 import Data.Set (member, fromDistinctAscList)
@@ -73,7 +72,7 @@ validateField s =
         ("hcl", v) -> validateHairColor v
         ("ecl", v) -> member v validEyeColors
         ("pid", v) -> validatePassportId v
-        ("cid", _) -> True
+        _ -> True
 
 main = do
     input <- parsedInput 4 (map (concatMap words) . groupedLines . lines)

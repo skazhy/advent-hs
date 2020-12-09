@@ -1,64 +1,124 @@
 #! /usr/bin/env bash
 
+# One-stop shop for developing and testing AoC puzzles in Haskell.
+# Usage: ./dev.sh [day] [lint] [assert]
+#
+# When run with no options, opens GHCi for given day number. Defaults to
+# current day if no day number is provied.
+# * lint: runs HLint & checks for GHC errors
+# * assert: compares output to correct solutions
+
 set -e
 
-# Usage: ./dev.sh [day]
 YEAR=2020
-TODAY=$(date "+%d" | sed -e 's/0//g')
-DAY=${1:-"$TODAY"}
+DAY=$(date "+%d" | sed -e 's/0//g')
 
-TODO_FILENAME="TODO.md"
+GHC_FLAGS=""
 
-# Add new source file if needed
-SRC_FILENAME="src/Day$DAY.hs"
-if [ ! -f "$SRC_FILENAME" ]; then
-  echo "Creating new source file for day $DAY..."
-  TITLE=$(curl -s https://adventofcode.com/$YEAR/day/$DAY | grep -m1 h2 | sed 's/.*--- \(Day .*\) ---.*/\1/')
-  cp src/Day0.hs src/Day$DAY.hs
-  # Remove / replace 2019.01 specific code.
-  sed -i "" "s/Day0/Day$DAY/g; \
-             3s/Day.*/$TITLE/; \
-             5d; \
-             6s:2019/day/1:$YEAR/day/$DAY:; \
-             8s/.*/\* /; \
-             s/parsedInput 0 intLines/parsedInput $DAY id/; \
-             18,24d;  \
-             27,28d;" $SRC_FILENAME
-  echo "    print input" >> $SRC_FILENAME
-  git add --intent-to-add $SRC_FILENAME
+while :
+do
+  case "${1-}" in
+    [0-9]*)
+      DAY=$1
+      shift
+      ;;
+    lint)
+      LINT=1
+      GHC_FLAGS="-Werror -Wall -Wno-missing-signatures"
+      shift
+      ;;
+    assert)
+      ASSERT=1
+      shift
+      ;;
+  *)
+    break
+    ;;
+  esac
+done
 
-  # Append new section to TODO.md if needed.
-  if ! grep -q "$TITLE" "$TODO_FILENAME"; then
-TODO_CONTENT=$(cat <<-eof
+PUZZLE_URL="https://adventofcode.com/$YEAR/day/$DAY"
+
+# Filenames
+TODOS_FILE="TODO.md"
+SRC_FILE="src/Day$DAY.hs"
+INPUT_FILE="inputs/day$DAY.txt"
+SOLUTION_FILE="solutions/day$DAY.txt"
+
+function update_todos_file {
+  if ! grep -q "$TITLE" "$TODOS_FILE"; then
+    local TODO_CONTENT=$(cat <<-eof
 
 ### $TITLE
 
-[puzzle](https://adventofcode.com/$YEAR/day/$DAY) | [source](/$SRC_FILENAME)
+[puzzle]($PUZZLE_URL) | [source](/$SRC_FILE)
 
 *
 eof
 )
-  echo "$TODO_CONTENT" >> "$TODO_FILENAME"
+echo "$TODO_CONTENT" >> "$TODOS_FILE"
   fi
-fi
+}
 
-# Create a new input file if needed
-INPUT_FILENAME="inputs/day$DAY.txt"
-if [ ! -f "$INPUT_FILENAME" ]; then
-  if [ ! -f ".cookie" ]; then
-    echo "Please save the cookie header value in .cookie!"
+function gen_src_file {
+  if [ ! -f "$SRC_FILE" ]; then
+    echo "Creating new source file for day $DAY..."
+    local TITLE=$(curl -s $PUZZLE_URL | grep -m1 h2 | sed 's/.*--- \(Day .*\) ---.*/\1/')
+    cp src/Day0.hs src/Day$DAY.hs
+    # Remove / replace 2019.01 specific code.
+    sed -i "" "s/Day0/Day$DAY/g; \
+               3s/Day.*/$TITLE/; \
+               5d; \
+               6s:2019/day/1:$YEAR/day/$DAY:; \
+               8s/.*/\* /; \
+               s/parsedInput 0 intLines/parsedInput $DAY id/; \
+               18,24d;  \
+               27,28d;" $SRC_FILE
+    echo "    print input" >> $SRC_FILE
+    git add --intent-to-add $SRC_FILE
+  fi
+}
+
+function fetch_input_file {
+  if [ ! -f "$INPUT_FILE" ]; then
+    if [ ! -f ".cookie" ]; then
+      echo "Please save the cookie header value in .cookie!"
+      exit 1
+    fi
+    curl -s --fail "$PUZZLE_URL/input" -H "Cookie: $(cat .cookie)" > "$INPUT_FILE"
+    git add --intent-to-add $INPUT_FILE
+  fi
+}
+
+function gen_solution_file {
+if [ ! -f "$SOLUTION_FILE" ]; then
+  touch $SOLUTION_FILE
+  git add --intent-to-add $SOLUTION_FILE
+fi
+}
+
+[ "$LINT" ] && hlint src/Advent.hs $SRC_FILE
+[ "$LINT" ] || [ "$ASSERT" ] && ACTUAL=$(runghc $GHC_FLAGS -isrc $SRC_FILE)
+
+if [[ "$ASSERT" ]]; then
+  EXPECTED=$(cat "$SOLUTION_FILE")
+  if [ "$ACTUAL" != "$EXPECTED" ]; then
+    echo "Tests failed for day $DAY"
+    echo "--- Expected:"
+    echo "$EXPECTED"
+    echo '--- Actual:'
+    echo "$ACTUAL"
     exit 1
+  else
+    echo "$ACTUAL"
+    echo "Tests passed for day $DAY"
   fi
-  curl -s --fail https://adventofcode.com/$YEAR/day/$DAY/input -H "Cookie: $(cat .cookie)" > "$INPUT_FILENAME"
-  git add --intent-to-add $INPUT_FILENAME
 fi
 
-# Create a solution file if needed
-SOLUTION_FILENAME="solutions/day$DAY.txt"
-if [ ! -f "$SOLUTION_FILENAME" ]; then
-  touch $SOLUTION_FILENAME
-  git add --intent-to-add $SOLUTION_FILENAME
+if [[ ! "$LINT" && ! "$ASSERT" ]]; then
+  gen_src_file
+  update_todos_file
+  fetch_input_file
+  gen_solution_file
+  ghci -isrc $SRC_FILE
 fi
-
-# Start GHCi with the selected source file loaded
-ghci -isrc $SRC_FILENAME

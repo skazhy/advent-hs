@@ -53,3 +53,9 @@
 [puzzle](https://adventofcode.com/2020/day/8) | [source](/src/Day8.hs)
 
 * `runInstruction` could be improved, looks a bit noisy now.
+
+### Day 9: Encoding Error
+
+[puzzle](https://adventofcode.com/2020/day/9) | [source](/src/Day9.hs)
+
+* Make it less brute-forcey.

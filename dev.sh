@@ -11,7 +11,7 @@
 set -e
 
 YEAR=2020
-DAY=$(date "+%d" | sed -e 's/0//g')
+DAY=$(date "+%d" | sed -e 's/^0//g')
 
 GHC_FLAGS=""
 

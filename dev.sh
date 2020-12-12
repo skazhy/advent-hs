@@ -71,7 +71,7 @@ function gen_src_file {
                5d; \
                6s:2019/day/1:$YEAR/day/$DAY:; \
                8s/.*/\* /; \
-               s/parsedInput 0 intLines/parsedInput $DAY id/; \
+               s/parsedInput 0 intLines/parsedInput $DAY lines/; \
                18,24d;  \
                27,28d;" $SRC_FILE
     echo "    print input" >> $SRC_FILE

@@ -63,7 +63,6 @@ echo "$TODO_CONTENT" >> "$TODOS_FILE"
 function gen_src_file {
   if [ ! -f "$SRC_FILE" ]; then
     echo "Creating new source file for day $DAY..."
-    local TITLE=$(curl -s $PUZZLE_URL | grep -m1 h2 | sed 's/.*--- \(Day .*\) ---.*/\1/')
     cp src/Day0.hs src/Day$DAY.hs
     # Remove / replace 2019.01 specific code.
     sed -i "" "s/Day0/Day$DAY/g; \
@@ -116,6 +115,7 @@ if [[ "$ASSERT" ]]; then
 fi
 
 if [[ ! "$LINT" && ! "$ASSERT" ]]; then
+  TITLE=$(curl -s $PUZZLE_URL | grep -m1 h2 | sed 's/.*--- \(Day .*\) ---.*/\1/')
   gen_src_file
   update_todos_file
   fetch_input_file

@@ -59,3 +59,15 @@
 [puzzle](https://adventofcode.com/2020/day/9) | [source](/src/Day9.hs)
 
 * Make it less brute-forcey.
+
+### Day 10: Adapter Array
+
+[puzzle](https://adventofcode.com/2020/day/10) | [source](/src/Day10.hs)
+
+*
+
+### Day 11: Seating System
+
+[puzzle](https://adventofcode.com/2020/day/11) | [source](/src/Day11.hs)
+
+*

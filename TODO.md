@@ -71,3 +71,11 @@
 [puzzle](https://adventofcode.com/2020/day/11) | [source](/src/Day11.hs)
 
 *
+
+### Day 12: Rain Risk
+
+[puzzle](https://adventofcode.com/2020/day/12) | [source](/src/Day12.hs)
+
+* Is there a better way to work with tuples? `incrementX` and `incrementY` are
+  pretty cumbersome.
+* Declutter the patterns in `updateCourse`

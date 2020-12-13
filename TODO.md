@@ -79,3 +79,9 @@
 * Is there a better way to work with tuples? `incrementX` and `incrementY` are
   pretty cumbersome.
 * Declutter the patterns in `updateCourse`
+
+### Day 13: Shuttle Search
+
+[puzzle](https://adventofcode.com/2020/day/13) | [source](/src/Day13.hs)
+
+*

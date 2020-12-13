@@ -113,10 +113,6 @@ in a single data type for easier pattern matching.
 
 [puzzle](https://adventofcode.com/2020/day/9) | [source](/src/Day9.hs)
 
-* Make it less brute-forcey.
-
-### Day 10: Adapter Array
-
 We are scanning the input with a fixed size window & finding whether or not
 the window contains numbers with sum equal to the last number in the window.
 In part two we are finding a cintiguous set of numbers that sum up to a given
@@ -126,19 +122,38 @@ Thanks to `hlint` I was able to simplify my basic monadic ops quite a bit &
 use appropriate Kliesli arrows. Other than that, guarded functions made
 this easy to implement.
 
+* Make it less brute-forcey.
+
+### Day 10: Adapter Array
+
 [puzzle](https://adventofcode.com/2020/day/10) | [source](/src/Day10.hs)
 
-*
+We are computing deltas for a sorted set of integers ("adapters"), the result
+is product of delta sums.
+
+For the second puzzle, we are computing the number of various combinations we
+can combine "adapters" to get from 0 to max + 3. In each step, the number of
+paths to given is computed & we cons this information to accumulator for
+lookup in later branches.
 
 ### Day 11: Seating System
 
 [puzzle](https://adventofcode.com/2020/day/11) | [source](/src/Day11.hs)
 
-*
+A game of life with a twist - along with basic GoL rules, we have some dead
+spaces which can't be occupied. In both puzzles we look for equilibrium states
+with differing rules on when a cell ("seat") can be freed.
+
+Grid is represented as `Map [Int] Seat` List was preferred over tuples, so
+neighbor cells could be looked up easier.
 
 ### Day 12: Rain Risk
 
 [puzzle](https://adventofcode.com/2020/day/12) | [source](/src/Day12.hs)
+
+We are moving a point in 2D grid & follow a set of instructions that change
+its coords. Coords are represented as `(Int, Int)` and both puzzles are pretty
+much a single pattern matched method.
 
 * Is there a better way to work with tuples? `incrementX` and `incrementY` are
   pretty cumbersome.
@@ -148,4 +163,5 @@ this easy to implement.
 
 [puzzle](https://adventofcode.com/2020/day/13) | [source](/src/Day13.hs)
 
-*
+Puzzle 1 is basic arithmetic, puzzle 2 is implementation of Chinese Remainder
+theorem (and extended Euclidean algorithm as the dependency).

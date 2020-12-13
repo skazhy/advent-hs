@@ -96,7 +96,7 @@ if [ ! -f "$SOLUTION_FILE" ]; then
 fi
 }
 
-[ "$LINT" ] && hlint src/Advent.hs $SRC_FILE
+[ "$LINT" ] && hlint src/Advent.hs src/Data $SRC_FILE
 [ "$LINT" ] || [ "$ASSERT" ] && ACTUAL=$(runghc $GHC_FLAGS -isrc $SRC_FILE)
 
 if [[ "$ASSERT" ]]; then

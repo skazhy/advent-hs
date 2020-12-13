@@ -62,6 +62,11 @@ filter out items that match both predicates in a list of passports.
 
 [puzzle](https://adventofcode.com/2020/day/5) | [source](/src/Day5.hs)
 
+We are decoding "boarding passes" & finding the biggest boarding pass id &
+looking up free seat in the second puzzle.
+
+Decoding is done by halving an int range (represented as tuple) in each step.
+
 * ~Is there a better way to do destructuring in `decodeBoardingPass` (so that
   `head` is not needed)?~
 * Try using `splitAt 7` in `decodeBoardingPass` instead of drop + take
@@ -72,17 +77,35 @@ filter out items that match both predicates in a list of passports.
 
 [puzzle](https://adventofcode.com/2020/day/6) | [source](/src/Day6.hs)
 
+Each paragraph contains "answers to questions" and we are counting unique
+answers in puzzle 1 & counting inersections of answers in puzzle 1.
+
 * ~`parseLines` should be moved to generic helpers.~
 
 ### Day 7: Handy Haversacks
 
 [puzzle](https://adventofcode.com/2020/day/7) | [source](/src/Day7.hs)
 
+We are building a graph of "bag dependencies" and traversing in 2 different
+w Graph is represnented as `Map String [(String, Int)]` where value string is
+the dependency field name & int is the number of "dependency bags".
+
+Data is being parsed only partially, so it's easier to inverse the graph for
+puzzle 1.
+
 * `sumOfChildren` and it's fold step can be improved.
 
 ### Day 8: Handheld Halting
 
 [puzzle](https://adventofcode.com/2020/day/8) | [source](/src/Day8.hs)
+
+We are running opcode instructions (that change register value & jump to other
+instructions) and try to detect infinite loop & find which instruction causes
+infinite loop.
+
+Both instructions (`nop`, `jmp`, `acc`) and halting conditions (halting
+because of end of program & halting because of infinite loops) are represented
+in a single data type for easier pattern matching.
 
 * `runInstruction` could be improved, looks a bit noisy now.
 
@@ -93,6 +116,15 @@ filter out items that match both predicates in a list of passports.
 * Make it less brute-forcey.
 
 ### Day 10: Adapter Array
+
+We are scanning the input with a fixed size window & finding whether or not
+the window contains numbers with sum equal to the last number in the window.
+In part two we are finding a cintiguous set of numbers that sum up to a given
+number.
+
+Thanks to `hlint` I was able to simplify my basic monadic ops quite a bit &
+use appropriate Kliesli arrows. Other than that, guarded functions made
+this easy to implement.
 
 [puzzle](https://adventofcode.com/2020/day/10) | [source](/src/Day10.hs)
 

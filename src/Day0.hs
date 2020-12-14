@@ -4,9 +4,6 @@ Description : Day 1: The Tyranny of the Rocket Equation
 
 Puzzle from December 1, 2019 that serves as a template for 2020 puzzles.
 <https://adventofcode.com/2019/day/1>
-Notes from this puzzle:
-* Haskell's iterate is the same as clojure.core/iterate
-
 -}
 
 module Day0 where

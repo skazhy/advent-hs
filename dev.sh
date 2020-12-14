@@ -40,7 +40,7 @@ done
 PUZZLE_URL="https://adventofcode.com/$YEAR/day/$DAY"
 
 # Filenames
-TODOS_FILE="TODO.md"
+TODOS_FILE="NOTES.md"
 SRC_FILE="src/Day$DAY.hs"
 INPUT_FILE="inputs/day$DAY.txt"
 SOLUTION_FILE="solutions/day$DAY.txt"
@@ -69,10 +69,9 @@ function gen_src_file {
                3s/Day.*/$TITLE/; \
                5d; \
                6s:2019/day/1:$YEAR/day/$DAY:; \
-               8s/.*/\* /; \
                s/parsedInput 0 intLines/parsedInput $DAY lines/; \
-               18,24d;  \
-               27,28d;" $SRC_FILE
+               15,21d;  \
+               24,25d;" $SRC_FILE
     echo "    print input" >> $SRC_FILE
     git add --intent-to-add $SRC_FILE
   fi

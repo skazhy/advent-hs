@@ -165,3 +165,14 @@ much a single pattern matched method.
 
 Puzzle 1 is basic arithmetic, puzzle 2 is implementation of Chinese Remainder
 theorem (and extended Euclidean algorithm as the dependency).
+
+### Day 14: Docking Data
+
+[puzzle](https://adventofcode.com/2020/day/14) | [source](/src/Day14.hs)
+
+We are parsing binary numbers and doing bitwise operations in puzzle 1 and
+generating numbers by bit-flipping in puzzle 2.
+
+Initially I wrote whole parsing logic for this that batched all operations
+together with their relevant mask, but I ended up removing it in favor of
+folding over all input data which looks much cleaner.

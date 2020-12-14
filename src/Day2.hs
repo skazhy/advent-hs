@@ -9,36 +9,32 @@ module Day2 where
 
 import Advent
 
+import Data.Bifunctor (bimap)
+
 data Password =
-    Password { low :: Int
-             , high :: Int
-             , letter :: Char
+    Password { letter :: Char
+             , range :: (Int, Int)
              , value :: String
              } deriving (Show)
-
-parseIndex :: String -> Int
-parseIndex = abs . read
 
 fromString :: String -> Password
 fromString s =
     let [i, l, v] = words s
-        indexes = break (== '-') i
-    in Password { low = parseIndex $ fst indexes
-                , high = parseIndex $ snd indexes
+    in Password { range = bimap (abs . read) (abs . read) $ break (== '-') i
                 , letter = head l
                 , value = v
                 }
 
 isValidPassword :: Password -> Bool
 isValidPassword pw =
-    (inRange (low pw, high pw) . length . filter (== letter pw) . value) pw
+    (inRange (range pw) . length . filter (== letter pw) . value) pw
 
-charMatcher :: (Password -> Int) -> Password -> Bool
-charMatcher val pw = value pw !! (val pw - 1) == letter pw
+charMatcher :: Password -> Int -> Bool
+charMatcher pw val = value pw !! (val - 1) == letter pw
 
 isValidPassword2 :: Password -> Bool
 isValidPassword2 pw =
-    charMatcher low pw /= charMatcher high pw
+    uncurry (/=) $ bimap (charMatcher pw) (charMatcher pw) $ range pw
 
 main = do
     input <- parsedInput 2 (map fromString . lines)

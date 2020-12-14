@@ -25,10 +25,12 @@ row. For the first puzzle we need to match that given character appears a
 certain amount of times. For the 2nd puzzle we need to match that the given
 character is only in one of the positions.
 
-Using 2 separate record fields for "high" and "low" values felt too verbose.
+Using 2 separate record fields for "high" and "low" values felt too verbose -
+I have refactored it to use `(Int,Int)` and discovered `Data.Bifunctor` which
+makes working with tuples much easier.
 
 * is there an idiomatic way to express `length . filter`?
-* try out using tuple for `low` and `high` instead of 2 fields.
+~* try out using tuple for `low` and `high` instead of 2 fields.~
 
 ### Day 3: Toboggan Trajectory
 

@@ -10,6 +10,7 @@ module Day5 where
 import Advent
 
 import Control.Applicative (liftA2)
+import Data.Bifunctor (first, second)
 import Data.List (maximum, sort)
 import Data.Maybe (fromMaybe)
 
@@ -18,8 +19,8 @@ rangeDelta = (`div` 2) . uncurry subtract
 
 updateRange :: Char -> (Int, Int) -> Char -> (Int, Int)
 updateRange low range ch
-    | low == ch = (fst range, snd range - rangeDelta range)
-    | otherwise = (fst range + rangeDelta range, snd range)
+    | low == ch = second (rangeDelta range `subtract`) range
+    | otherwise = first (+ rangeDelta range) range
 
 decodeRange :: Char -> Int -> String -> Int
 decodeRange lowChar high = fst . foldl (updateRange lowChar) (0, high)

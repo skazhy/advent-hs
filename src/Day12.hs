@@ -9,6 +9,8 @@ module Day12 where
 
 import Advent
 
+import Data.Bifunctor (bimap, first, second)
+
 data Course =
     Course { coords :: (Int, Int)
            , direction :: (Int, Int)
@@ -21,36 +23,27 @@ data Navigation = Coords | Waypoint
 parseLine :: String -> (Char, Int)
 parseLine (x:xs) = (x, read xs)
 
-incrementY :: (Int, Int) -> Int -> (Int, Int)
-incrementY (x, y) a = (x, y + a)
-
-incrementX :: (Int, Int) -> Int -> (Int, Int)
-incrementX (x, y) a = (x + a, y)
-
 turnRight :: (Int, Int) -> (Int, Int)
 turnRight (x, y) = (negate y, x)
 
 turnLeft :: (Int, Int) -> (Int, Int)
 turnLeft (x, y) = (y, negate x)
 
-turnAround :: (Int, Int) -> (Int, Int)
-turnAround (x, y) = (negate x, negate y)
-
 moveForward :: Course -> Int -> (Int, Int)
 moveForward c i =
-    (fst (coords c) + fst (direction c) * i, snd (coords c) + snd (direction c) * i)
+    bimap (+ fst (direction c) * i) (+ snd (direction c) * i) (coords c)
 
 updateCourse :: Navigation -> Course -> (Char, Int) -> Course
-updateCourse Coords c ('N', i) = c { coords = incrementY (coords c) (negate i) }
-updateCourse Coords c ('S', i) = c { coords = incrementY (coords c) i }
-updateCourse Coords c ('E', i) = c { coords = incrementX (coords c) i }
-updateCourse Coords c ('W', i) = c { coords = incrementX (coords c) (negate i) }
-updateCourse _ c ('N', i) = c { direction = incrementY (direction c) (negate i) }
-updateCourse _ c ('S', i) = c { direction = incrementY (direction c) i }
-updateCourse _ c ('E', i) = c { direction = incrementX (direction c) i }
-updateCourse _ c ('W', i) = c { direction = incrementX (direction c) (negate i) }
+updateCourse Coords c ('N', i) = c { coords = second (+ negate i) (coords c) }
+updateCourse Coords c ('S', i) = c { coords = second (+ i) (coords c) }
+updateCourse Coords c ('E', i) = c { coords = first (+ i) (coords c) }
+updateCourse Coords c ('W', i) = c { coords = first (+ negate i) (coords c) }
+updateCourse _ c ('N', i) = c { direction = second (+ negate i) (direction c) }
+updateCourse _ c ('S', i) = c { direction = second (+ i) (direction c) }
+updateCourse _ c ('E', i) = c { direction = first (+ i) (direction c) }
+updateCourse _ c ('W', i) = c { direction = first (+ negate i) (direction c) }
 updateCourse _ c ('F', i) = c { coords = moveForward c i }
-updateCourse _ c (_, 180) = c { direction = turnAround (direction c) }
+updateCourse _ c (_, 180) = c { direction = bimap negate negate (direction c) }
 updateCourse _ c ('R', 90) = c { direction = turnRight (direction c) }
 updateCourse _ c ('R', 270) = c { direction = turnLeft (direction c) }
 updateCourse _ c ('L', 90) = c { direction = turnLeft (direction c) }

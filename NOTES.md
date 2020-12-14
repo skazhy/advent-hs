@@ -176,8 +176,8 @@ We are moving a point in 2D grid & follow a set of instructions that change
 its coords. Coords are represented as `(Int, Int)` and both puzzles are pretty
 much a single pattern matched method.
 
-* Is there a better way to work with tuples? `incrementX` and `incrementY` are
-  pretty cumbersome.
+* ~Is there a better way to work with tuples? `incrementX` and `incrementY` are
+  pretty cumbersome.~ Refactored to use `Data.Bifunctor`
 * Declutter the patterns in `updateCourse`
 
 ### Day 13: Shuttle Search

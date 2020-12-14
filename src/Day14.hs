@@ -1,3 +1,5 @@
+{-# LANGUAGE LambdaCase #-}
+
 {-|
 Module      : Day14
 Description : Day 14: Docking Data
@@ -11,11 +13,9 @@ import Advent
 
 import Control.Applicative (liftA2)
 import Data.Bits ((.|.), (.&.), clearBit, setBit)
-import Data.Char (digitToInt)
+import Data.Int (readBinaryInt)
 import Data.Map (Map, empty, insert)
-import Data.Maybe (listToMaybe)
 import Data.List (isPrefixOf, subsequences)
-import Numeric (readInt)
 
 -- Parsing
 
@@ -42,10 +42,7 @@ runMaskedOps prepareMask updateMemory (l:ls) =
 -- Puzzle 1: Applying masks to values
 
 readMask :: Char -> String -> Maybe Int
-readMask c =
-    fmap  fst . listToMaybe . readInt 2 (const True) digitToInt . map fmtMask
-    where fmtMask 'X' = c
-          fmtMask d = d
+readMask c = readBinaryInt . map (\case 'X' -> c; d -> d)
 
 applyMaskFn :: String -> Maybe (Int -> Int)
 applyMaskFn s = liftA2 (\m m' -> (m' .|.) . (m .&.)) (readMask '1' s) (readMask '0' s)

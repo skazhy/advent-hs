@@ -3,11 +3,6 @@ Module      : Day4
 Description : Day 4: Passport Processing
 
 <https://adventofcode.com/2020/day/4>
-Notes from this puzzle:
-* readMaybe could be extracted to a shared helpers module.
-* `where` + recursion pattern is super useful (jacked from groupBy source)
-* items in `fromDistinctAscList` actually need to be in order, or they won't be included
-  in the resulting set.
 -}
 
 module Day4 where

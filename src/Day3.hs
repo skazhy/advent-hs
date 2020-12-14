@@ -3,9 +3,6 @@ Module      : Day3
 Description : Day 3: Toboggan Trajectory
 
 <https://adventofcode.com/2020/day/3>
-Notes from this puzzle:
-* `foldl (*) 1 x` can be rewritten as `product x`
-* `if something then 1 else 0` can be rewritten as `fromEnum something`
 -}
 
 module Day3 where

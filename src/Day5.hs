@@ -3,9 +3,6 @@ Module      : Day5
 Description : Day 5: Binary Boarding
 
 <https://adventofcode.com/2020/day/5>
-Notes from this puzzle:
-* `zipWith ($) functions els` is roughly equivalent to
-   `(map #(%1 %2) functions els)`
 -}
 
 module Day5 where

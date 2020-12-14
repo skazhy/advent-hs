@@ -5,9 +5,6 @@ Module      : Day7
 Description : Day 7: Handy Haversacks
 
 <https://adventofcode.com/2020/day/7>
-Notes from this puzzle:
-* TupleSections extension can be used to section a tuple
-* Data.Map is not what one might expect when coming from Clojure.
 -}
 
 module Day7 where

@@ -3,9 +3,6 @@ Module      : Day11
 Description : Day 11: Seating System
 
 <https://adventofcode.com/2020/day/11>
-Notes from this puzzle:
-* `zipWith (,)` can be rewritten as `zip`
-* `foo >>= id` can be rewritten as `Control.Monad.join foo`
 -}
 
 module Day11 where

@@ -3,8 +3,6 @@ Module      : Day13
 Description : Day 13: Shuttle Search
 
 <https://adventofcode.com/2020/day/13>
-Notes from this puzzle:
-* `div` rounds down; `/` cannot be used with Ints.
 -}
 
 module Day13 where

@@ -3,9 +3,6 @@ Module      : Day2
 Description : Day 2: Password Philosophy
 
 <https://adventofcode.com/2020/day/2>
-Notes from this puzzle:
-* break returns a tuple with two collections.
-* !! returns element at index (or throws)
 -}
 
 module Day2 where

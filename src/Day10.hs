@@ -3,8 +3,6 @@ Module      : Day10
 Description : Day 10: Adapter Array
 
 <https://adventofcode.com/2020/day/10>
-Notes from this puzzle:
-* where + point-free style works as expected.
 -}
 
 module Day10 where

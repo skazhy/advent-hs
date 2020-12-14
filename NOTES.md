@@ -10,7 +10,8 @@ return the product of the found numbers.
 
 `Control.Applicative.<|>` is used to continue searching list, if elements do
 not sum up to 2020, `Data.Foldable.asum` is used to take first non-empty
-element from the list (which contains the sum).
+element from the list (which contains the sum). It is not possible to pattern
+match on sets, so both sets and lists are used.
 
 * `elementResult`: is there a way to return replace `member` lookup with a
   method that returns a Maybe, so that the if-else can be replaced with a map.
@@ -56,6 +57,12 @@ in the second puzzle we validate field values as well.
 Straight-forward task with pattern matching & guards. `liftM2` is used to
 filter out items that match both predicates in a list of passports.
 
+I learned about `where` + recursion pattern by reading `groupBy` source, this
+has been used a lot in other puzzles.
+
+Items in `fromDistinctAscList` actually need to be in order, or they won't be
+included in the resulting set.
+
 * ~Do not use ranges in `validateHeight`~
 
 ### Day 5: Binary Boarding
@@ -66,6 +73,8 @@ We are decoding "boarding passes" & finding the biggest boarding pass id &
 looking up free seat in the second puzzle.
 
 Decoding is done by halving an int range (represented as tuple) in each step.
+
+`zipWith ($) functions els` is roughly equivalent to `(map #(%1 %2) functions els)`
 
 * ~Is there a better way to do destructuring in `decodeBoardingPass` (so that
   `head` is not needed)?~
@@ -92,6 +101,10 @@ the dependency field name & int is the number of "dependency bags".
 
 Data is being parsed only partially, so it's easier to inverse the graph for
 puzzle 1.
+
+`TupleSections` extension is used in order to section a tuple which is a handy
+shortcut in this puzzle: ` (\x -> (x, 1)) $ 10` can be shortened to `(,1) $
+10`.
 
 * `sumOfChildren` and it's fold step can be improved.
 
@@ -120,7 +133,8 @@ number.
 
 Thanks to `hlint` I was able to simplify my basic monadic ops quite a bit &
 use appropriate Kliesli arrows. Other than that, guarded functions made
-this easy to implement.
+this easy to implement. Some composition options discovered:
+`finally $ this input >>= that` =  `finally . (that =<<) . this` = `finally . (this <=< that)`
 
 * Make it less brute-forcey.
 
@@ -147,6 +161,11 @@ with differing rules on when a cell ("seat") can be freed.
 Grid is represented as `Map [Int] Seat` List was preferred over tuples, so
 neighbor cells could be looked up easier.
 
+Some notable simplifications from `hlint`:
+
+* `zipWith (,)` => `zip`
+* `foo >>= id` => `Control.Monad.join foo`
+
 ### Day 12: Rain Risk
 
 [puzzle](https://adventofcode.com/2020/day/12) | [source](/src/Day12.hs)
@@ -165,6 +184,9 @@ much a single pattern matched method.
 
 Puzzle 1 is basic arithmetic, puzzle 2 is implementation of Chinese Remainder
 theorem (and extended Euclidean algorithm as the dependency).
+
+A custom division method was required, since `div` always rounds down & puzzle
+1 required `ceil` rounding.
 
 ### Day 14: Docking Data
 

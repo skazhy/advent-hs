@@ -3,9 +3,6 @@ Module      : Day9
 Description : Day 9: Encoding Error
 
 <https://adventofcode.com/2020/day/9>
-Notes from this puzzle:
-* Puzzle 2 composition options:
-`finally $ this input >>= that` =  `finally . (that =<<) . this` = `finally . (this <=< that)`
 -}
 
 module Day9 where

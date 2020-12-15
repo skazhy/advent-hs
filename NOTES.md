@@ -200,3 +200,14 @@ generating numbers by bit-flipping in puzzle 2.
 Initially I wrote whole parsing logic for this that batched all operations
 together with their relevant mask, but I ended up removing it in favor of
 folding over all input data which looks much cleaner.
+
+### Day 15: Rambunctious Recitation
+
+[puzzle](https://adventofcode.com/2020/day/15) | [source](/src/Day15.hs)
+
+Re-implementation my [Clojure solution](https://github.com/skazhy/advent/blob/master/src/advent/2020/day15.clj)
+was causing stack overflow errors, so I implemented it with [van Eck
+sequence](https://www.youtube.com/watch?v=etMJxB-igrc).
+
+* Fix stack overflow errors that still plague the current implementation for
+  puzzle 2 input

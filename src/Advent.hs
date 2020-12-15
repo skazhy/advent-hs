@@ -1,12 +1,16 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Advent
     ( readInput
     , parsedInput
     , intLines
+    , intSequence
     , inRange
     , groupedLines
     ) where
 
 import Control.Monad
+import qualified Data.Text as T
 
 inputFilename :: Int -> String
 inputFilename dayNum =
@@ -19,8 +23,13 @@ parsedInput :: Int -> (String -> a) -> IO a
 parsedInput dayNum parse =
     parse <$> readInput dayNum
 
+-- Input parsers
+
 intLines :: String -> [Int]
 intLines = map read . lines
+
+intSequence :: String -> [Int]
+intSequence = map (read . T.unpack) . T.splitOn "," . T.pack
 
 -- Helpers
 

@@ -211,3 +211,13 @@ sequence](https://www.youtube.com/watch?v=etMJxB-igrc).
 
 * Fix stack overflow errors that still plague the current implementation for
   puzzle 2 input
+
+### Day 16: Ticket Translation
+
+[puzzle](https://adventofcode.com/2020/day/16) | [source](/src/Day16.hs)
+
+A sudoku-like solving puzzle wrapped in railroad theme. We need to find wich
+rows match range predicates and then decode correct order of the elements. As
+with some previous days, today's solution was translated from my Clojure approach.
+
+* Pattern discovered via hlint: `sequence (map foo items)` => `mapM foo items`

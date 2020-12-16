@@ -13,8 +13,6 @@ import Control.Monad
 import Data.Bifunctor (bimap, second)
 import Data.List (intersect, isPrefixOf, transpose, find, delete)
 
--- Parse
-
 parseRange :: String -> (Int -> Bool)
 parseRange = inRange . bimap read (read . tail) . span (/= '-')
 
@@ -39,25 +37,29 @@ puzzle1 fields = sum . concatMap (filter (not . anyFieldMatches fields))
 fieldChoices :: [(String, Int -> Bool)] -> Int -> [String]
 fieldChoices fields i = map fst $ filter (\(_, m) -> m i) fields
 
+uniqueFieldChoices :: [(String, Int -> Bool)] -> [[Int]] -> [[String]]
 uniqueFieldChoices fields =
     map (foldl1 intersect) . transpose . map (map (fieldChoices fields))
 
-findUnique :: [(Int, [String])] -> [(Int, String)]
-findUnique choices =
-    case find ((== 1) . length . snd) choices of
-        Just (idx, [r]) -> (idx, r) : findUnique (filter ((/= idx) . fst) $ map (second (delete r)) choices)
-        _ -> []
+deleteFieldAndIdx :: Int -> String -> [(Int, [String])] -> [(Int, [String])]
+deleteFieldAndIdx idx r = filter ((/= idx) . fst) . map (second (delete r))
 
-departureFields :: [(Int, String)] -> [Int]
-departureFields = map fst . filter (("departure" `isPrefixOf`) . snd)
+fieldIndexes :: [(String, Int -> Bool)] -> [[Int]] -> [(Int, String)]
+fieldIndexes fields =
+    go . zip [0..] . uniqueFieldChoices fields where
+    go cs =
+        case find ((== 1) . length . snd) cs of
+            Just (idx, [r]) -> (idx, r) : go (deleteFieldAndIdx idx r cs)
+            _ -> []
 
-fieldIndexes fields tickets =
-    departureFields . findUnique $ zip [0..] $ uniqueFieldChoices fields tickets
+departureFields :: [Int] -> [(Int, String)] -> [Int]
+departureFields ticket =
+    map ((ticket !!) . fst) . filter (("departure" `isPrefixOf`) . snd)
 
 puzzle2 :: [(String, Int -> Bool)] -> [Int] -> [[Int]] -> Int
-puzzle2 fields ticket nearby =
-    let matcher = anyFieldMatches fields
-    in product $ map (ticket !!) $ fieldIndexes fields $ filter (all matcher) nearby
+puzzle2 fields ticket =
+    product . departureFields ticket . fieldIndexes fields . filter (all matcher) where
+    matcher = anyFieldMatches fields
 
 main = do
     (fs:ticket:nearby:_) <- parsedInput 16 (groupedLines . lines)

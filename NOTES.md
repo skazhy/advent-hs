@@ -221,3 +221,12 @@ rows match range predicates and then decode correct order of the elements. As
 with some previous days, today's solution was translated from my Clojure approach.
 
 * Pattern discovered via hlint: `sequence (map foo items)` => `mapM foo items`
+
+### Day 17: Conway Cubes
+
+[puzzle](https://adventofcode.com/2020/day/17) | [source](/src/Day17.hs)
+
+Conway's game of life in 3 and 4 dimensions.
+
+This runs super slow, since it's a direct port of my Clojure solution. Room
+for improvement and refactors.

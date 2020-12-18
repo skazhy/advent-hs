@@ -230,3 +230,10 @@ Conway's game of life in 3 and 4 dimensions.
 
 This runs super slow, since it's a direct port of my Clojure solution. Room
 for improvement and refactors.
+
+### Day 18: Operation Order
+
+[puzzle](https://adventofcode.com/2020/day/18) | [source](/src/Day18.hs)
+
+Puzzle is doing single digit arithmetics with different precedence rules.
+Thanks to pattern matching, this ended up being one big method.

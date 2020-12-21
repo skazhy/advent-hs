@@ -21,12 +21,9 @@ parseLine = second (map init . drop 1) . break ("(contains" `isPrefixOf`) . word
 allergenMap :: ([String], [String]) -> Map String [String]
 allergenMap = fromList . uncurry (zipWith (flip (,))) . first repeat
 
-allergens :: [([String], [String])] -> Map String [String]
-allergens = foldl (unionWith intersect) empty . map allergenMap
-
 knownAllergens :: [([String], [String])] -> Map String String
 knownAllergens =
-    go empty . allergens where
+    go empty . foldl1 (unionWith intersect) . map allergenMap where
     go to from | null from = to
                | otherwise = go (union to $ head <$> M.filter ((== 1) . length) from)
                                 (M.filter (not . null) $ fmap (\\ elems to) from)

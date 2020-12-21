@@ -14,6 +14,7 @@ import Data.List (isPrefixOf, intersect, intercalate, repeat, (\\))
 import Data.Map (Map, empty, fromList, union, unionWith, elems)
 import qualified Data.Map as M
 
+-- |Parses input line (`mxmxvkd kfcds sqjhc nhms (contains dairy, fish)`)
 parseLine :: String -> ([String], [String])
 parseLine = second (map init . drop 1) . break ("(contains" `isPrefixOf`) . words
 
@@ -21,6 +22,7 @@ parseLine = second (map init . drop 1) . break ("(contains" `isPrefixOf`) . word
 allergenMap :: ([String], [String]) -> Map String [String]
 allergenMap = fromList . uncurry (flip zip) . first repeat
 
+-- |Creates a map of (allergen name -> ingredient) for all known dangerous ingredients
 knownAllergens :: [([String], [String])] -> Map String String
 knownAllergens =
     go empty . foldl1 (unionWith intersect) . map allergenMap where

@@ -247,4 +247,5 @@ This was the first puzzle of 2020 that I solved in Haskell first  & was not
 relying on a working Clojure version.
 
 * Lesson from hlint: break foo `span (not . foo)`
-* Explore arrows module & maybe it could help clean up the code a bit
+* ~Explore arrows module & maybe it could help clean up the code a bit~ not
+  relevant here - all methods are point-free.

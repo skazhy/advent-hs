@@ -19,7 +19,7 @@ parseLine = second (map init . drop 1) . break ("(contains" `isPrefixOf`) . word
 
 -- |Creates a  map of (allergen name -> ingredient listing) for a single input row
 allergenMap :: ([String], [String]) -> Map String [String]
-allergenMap = fromList . uncurry (zipWith (flip (,))) . first repeat
+allergenMap = fromList . uncurry (flip zip) . first repeat
 
 knownAllergens :: [([String], [String])] -> Map String String
 knownAllergens =

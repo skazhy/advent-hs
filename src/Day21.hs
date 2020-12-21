@@ -9,9 +9,9 @@ module Day21 where
 
 import Advent
 
+import Control.Monad (join)
 import Data.Bifunctor (first, second)
 import Data.List (isPrefixOf, intersect, intercalate, sortOn, repeat, (\\))
-import Control.Monad (join)
 import Data.Map (Map, empty, fromList, toList, union, unionWith, elems)
 import qualified Data.Map as M
 
@@ -27,19 +27,13 @@ allergens = foldl (unionWith intersect) empty . map allergenMap
 
 knownAllergens :: [([String], [String])] -> Map String [String]
 knownAllergens =
-    cleanup empty . allergens where
-    cleanup to from | null from = to
-                    | otherwise = cleanup (union to $ M.filter ((== 1) . length) from)
-                                          (M.filter (not . null) $ fmap (\\ (join $ elems to)) from)
-
-puzzle1 :: [([String], [String])] -> [String] -> Int
-puzzle1 input known =
-    foldl (\acc (f,_) -> acc + length (f \\ known)) 0 input
-
-loadInput = parsedInput 21 (map parseLine . lines)
+    go empty . allergens where
+    go to from | null from = to
+               | otherwise = go (union to $ M.filter ((== 1) . length) from)
+                                (M.filter (not . null) $ fmap (\\ (join $ elems to)) from)
 
 main = do
-    input <- loadInput
+    input <- parsedInput 21 (map parseLine . lines)
     let known = knownAllergens input
-    print $ puzzle1 input (join $ elems known)
-    print $ intercalate "," $ join $ map snd $ sortOn fst $ toList known
+    print $ sum $ map (length . (\\ (join $ elems known)) . fst) input
+    print $ (intercalate "," . join . map snd . sortOn fst . toList) known

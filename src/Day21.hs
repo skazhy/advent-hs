@@ -11,8 +11,8 @@ import Advent
 
 import Control.Monad (join)
 import Data.Bifunctor (first, second)
-import Data.List (isPrefixOf, intersect, intercalate, sortOn, repeat, (\\))
-import Data.Map (Map, empty, fromList, toList, union, unionWith, elems)
+import Data.List (isPrefixOf, intersect, intercalate, repeat, (\\))
+import Data.Map (Map, empty, fromList, union, unionWith, elems)
 import qualified Data.Map as M
 
 parseLine :: String -> ([String], [String])
@@ -36,4 +36,4 @@ main = do
     input <- parsedInput 21 (map parseLine . lines)
     let known = knownAllergens input
     print $ sum $ map (length . (\\ (join $ elems known)) . fst) input
-    print $ (intercalate "," . join . map snd . sortOn fst . toList) known
+    print $ (intercalate "," . join . elems) known

@@ -17,7 +17,7 @@ import qualified Data.Map as M
 parseLine :: String -> ([String], [String])
 parseLine = second (map init . drop 1) . break ("(contains" `isPrefixOf`) . words
 
--- |Creates allergen map (allergen -> food listing) for a single map entry
+-- |Creates a  map of (allergen name -> ingredient listing) for a single input row
 allergenMap :: ([String], [String]) -> Map String [String]
 allergenMap = fromList . uncurry (zipWith (flip (,))) . first repeat
 
@@ -35,4 +35,4 @@ main = do
     input <- parsedInput 21 (map parseLine . lines)
     let known = knownAllergens input
     print $ sum $ map (length . (\\ elems known) . fst) input
-    print $ (intercalate "," .  elems) known
+    print $ (intercalate "," . elems) known

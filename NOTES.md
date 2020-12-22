@@ -249,3 +249,12 @@ relying on a working Clojure version.
 * Lesson from hlint: break foo `span (not . foo)`
 * ~Explore arrows module & maybe it could help clean up the code a bit~ not
   relevant here - all methods are point-free.
+
+### Day 22: Crab Combat
+
+[puzzle](https://adventofcode.com/2020/day/22) | [source](/src/Day22.hs)
+
+Today's puzzle is 2-player card game. We need to find the winner in a
+recursive and non-recursive game variants.
+
+* Clean up `turn2`

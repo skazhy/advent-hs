@@ -258,3 +258,10 @@ Today's puzzle is 2-player card game. We need to find the winner in a
 recursive and non-recursive game variants.
 
 * Clean up `turn2`
+
+### Day 25: Combo Breaker
+
+[puzzle](https://adventofcode.com/2020/day/25) | [source](/src/Day25.hs)
+
+We are finding encryption keys based on 2 known public keys. Easy little
+puzzle to wrap this year off.

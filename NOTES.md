@@ -259,6 +259,14 @@ recursive and non-recursive game variants.
 
 * Clean up `turn2`
 
+### Day 24: Lobby Layout
+
+[puzzle](https://adventofcode.com/2020/day/24) | [source](/src/Day24.hs)
+
+We are implementing hex grid traversals in these puzzles. I used the wonderful [hex grid guide](https://www.redblobgames.com/grids/hexagons/) for my representation.
+
+* Make part 2 cleaner
+
 ### Day 25: Combo Breaker
 
 [puzzle](https://adventofcode.com/2020/day/25) | [source](/src/Day25.hs)

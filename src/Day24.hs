@@ -9,9 +9,11 @@ module Day24 where
 
 import Advent
 
-import Data.Map (alter, empty)
+import Data.Map (Map, alter, empty)
 
-data Direction = E | W | NW | NE | SW | SE deriving (Show)
+data Direction = E | W | NW | NE | SW | SE deriving (Enum, Show)
+
+type Coords = (Int, Int, Int)
 
 parseLine :: String -> [Direction]
 parseLine [] = []
@@ -22,21 +24,24 @@ parseLine ('s':'w':xs) = SW : parseLine xs
 parseLine ('n':'e':xs) = NE : parseLine xs
 parseLine ('n':'w':xs) = NW : parseLine xs
 
-updCoords :: (Int, Int, Int) -> Direction -> (Int, Int, Int)
-updCoords (x,y,z) NW = (x, y+1, z-1)
-updCoords (x,y,z) NE = (x+1, y, z-1)
-updCoords (x,y,z) W = (x-1, y+1, z)
-updCoords (x,y,z) E = (x+1, y-1, z)
-updCoords (x,y,z) SW = (x-1, y, z+1)
-updCoords (x,y,z) SE = (x, y-1, z+1)
+updCoords :: Direction -> Coords -> Coords
+updCoords NW (x,y,z) = (x, y+1, z-1)
+updCoords NE (x,y,z) = (x+1, y, z-1)
+updCoords W (x,y,z) = (x-1, y+1, z)
+updCoords E (x,y,z) = (x+1, y-1, z)
+updCoords SW (x,y,z) = (x-1, y, z+1)
+updCoords SE (x,y,z) = (x, y-1, z+1)
 
 flipTile :: Maybe Bool -> Maybe Bool
 flipTile (Just True) = Nothing
 flipTile _ = Just True
 
-flipTiles :: [[Direction]] -> Int
-flipTiles = length . foldl (flip (alter flipTile)) empty . map (foldl updCoords (0,0,0))
+flipTiles :: [[Direction]] -> Map Coords Bool
+flipTiles = foldl (flip (alter flipTile)) empty . map (foldl (flip updCoords) (0,0,0))
+
+neighbors :: Coords -> [Coords]
+neighbors = mapM updCoords (enumFrom E)
 
 main = do
     input <- parsedInput 24 (map parseLine . lines)
-    print $ flipTiles input
+    print $ (length . flipTiles) input

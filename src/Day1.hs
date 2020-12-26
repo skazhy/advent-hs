@@ -9,32 +9,29 @@ module Day1 where
 
 import Advent
 
-import Control.Applicative
+import Control.Applicative ((<|>))
 import Data.Foldable (asum)
 import Data.Maybe (fromMaybe)
-import Data.Set (Set, fromList, member)
 
-elementResult :: Set Int -> [Int] -> Maybe Int
-elementResult itemSet els =
+elementResult :: [Int] -> [Int] -> Maybe Int
+elementResult items els =
     let el = 2020 - sum els in
-    if member el itemSet
+    if el `elem` items
        then Just $ foldr (*) el els
        else Nothing
 
-tripletResult :: Set Int -> [Int] -> Int -> Maybe Int
-tripletResult itemSet (x:xs) y =
-    elementResult itemSet [x, y] <|> tripletResult itemSet xs y
-tripletResult _ [] _ = Nothing
+tripletResult :: [Int] -> Int -> Maybe Int
+tripletResult (x:xs) y =
+    elementResult xs [x, y] <|> tripletResult xs y
+tripletResult [] _ = Nothing
 
 puzzle1 :: [Int] -> Maybe Int
 puzzle1 items =
-    let itemSet = fromList items
-    in asum $ fmap (elementResult itemSet . return) items
+    asum $ fmap (elementResult items . pure) items
 
 puzzle2 :: [Int] -> Maybe Int
-puzzle2 input =
-    let itemSet = fromList input
-    in asum $ map (tripletResult itemSet input) input
+puzzle2 items =
+    asum $ map (tripletResult items) items
 
 main = do
     items <- parsedInput 1 intLines

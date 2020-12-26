@@ -10,8 +10,8 @@ return the product of the found numbers.
 
 `Control.Applicative.<|>` is used to continue searching list, if elements do
 not sum up to 2020, `Data.Foldable.asum` is used to take first non-empty
-element from the list (which contains the sum). It is not possible to pattern
-match on sets, so both sets and lists are used.
+element from the list (which contains the sum). ~It is not possible to pattern
+match on sets, so both sets and lists are used.~
 
 * `elementResult`: is there a way to return replace `member` lookup with a
   method that returns a Maybe, so that the if-else can be replaced with a map.

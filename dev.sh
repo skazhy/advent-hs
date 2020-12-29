@@ -78,12 +78,14 @@ function gen_src_file {
 }
 
 function fetch_input_file {
+  set -e
   if [ ! -f "$INPUT_FILE" ]; then
     if [ ! -f ".cookie" ]; then
       echo "Please save the cookie header value in .cookie!"
       exit 1
     fi
-    curl -s --fail "$PUZZLE_URL/input" -H "Cookie: $(cat .cookie)" > "$INPUT_FILE"
+    curl --fail -s "$PUZZLE_URL/input" -H "Cookie: $(cat .cookie)" > "$INPUT_FILE" || \
+      (echo "Error: please refresh .cookie!" && rm -f "$INPUT_FILE" && exit 1)
     git add --intent-to-add $INPUT_FILE
   fi
 }

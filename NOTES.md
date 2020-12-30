@@ -238,6 +238,14 @@ for improvement and refactors.
 Puzzle is doing single digit arithmetics with different precedence rules.
 Thanks to pattern matching, this ended up being one big method.
 
+
+### Day 20: Jurassic Jigsaw
+
+[puzzle](https://adventofcode.com/2020/day/20) | [source](/src/Day20.hs)
+
+We are solving jigsaw puzzles and finding patterns in the completed puzzle.
+Solution is super verbose, but it works.
+
 ### Day 21: Allergen Assessment
 
 [puzzle](https://adventofcode.com/2020/day/21) | [source](/src/Day21.hs)

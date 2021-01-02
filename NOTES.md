@@ -281,3 +281,8 @@ We are implementing hex grid traversals in these puzzles. I used the wonderful [
 
 We are finding encryption keys based on 2 known public keys. Easy little
 puzzle to wrap this year off.
+
+## TODO:
+
+- [ ] Day 19 (formal grammar)
+- [ ] Part 2 of day 23

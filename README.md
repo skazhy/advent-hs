@@ -12,7 +12,7 @@
 ```
 
 Haskell solutions to [Advent of Code 2020](https://adventofcode.com/2020).
-My Clojure solutions for (some of) 2017-2020 puzzles are [here](https://github.com/skazhy/advent).
+Main repository for AoC solutions (which includes these as well) [is here](https://github.com/skazhy/advent).
 
 My goal for Advent of Code 2020 is to explore core Haskell & not use any
 external libraries. Most puzzles contain new things learned when solving the
